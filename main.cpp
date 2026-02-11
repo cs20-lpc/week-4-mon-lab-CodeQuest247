@@ -1,5 +1,7 @@
 #include "LinkedList.hpp"
 #include <string>
+#include <iostream>                 // ADDED
+using namespace std;                // ADDED
 
 int main() {
     // call the constructor
@@ -95,6 +97,43 @@ int main() {
         cout << "myList is empty!\n";
     }
 
+    // Additional Testing Code 
+    LinkedList<int> intList;                                   // ADDED
+    intList.append(10);                                       // ADDED
+    intList.append(20);                                       // ADDED
+    intList.append(30);                                       // ADDED
+    cout << intList;                                          // ADDED
+
+    intList.insert(0, 5);                                     // ADDED
+    intList.insert(2, 15);                                    // ADDED
+    intList.insert(intList.getLength(), 35);                  // ADDED
+    cout << intList;                                          // ADDED
+
+    intList.remove(0);                                        // ADDED
+    intList.remove(1);                                        // ADDED
+    intList.remove(intList.getLength() - 1);                  // ADDED
+    cout << intList;                                          // ADDED
+
+    LinkedList<int> copiedIntList = intList;                  // ADDED
+    copiedIntList.append(100);                                // ADDED
+    cout << copiedIntList;                                    // ADDED
+    cout << intList;                                          // ADDED
+
+    try {                                                     // ADDED
+        intList.insert(-1, 999);                              // ADDED
+    }                                                         // ADDED
+    catch (string& e) {                                      // ADDED
+        cerr << e << endl;                                   // ADDED
+    }                                                         // ADDED
+
+    try {                                                     // ADDED
+        intList.remove(50);                                  // ADDED
+    }                                                         // ADDED
+    catch (string& e) {                                      // ADDED
+        cerr << e << endl;                                   // ADDED
+    }                                                         // ADDED
+
     // terminate
     return 0;
 }
+

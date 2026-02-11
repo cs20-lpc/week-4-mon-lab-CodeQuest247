@@ -57,6 +57,26 @@ void LinkedList<T>::clear() {
 template <typename T>
 void LinkedList<T>::copy(const LinkedList<T>& copyObj) {
     // TODO
+    this->length = 0;                 
+    head = nullptr;                   
+
+    if (copyObj.head == nullptr) {    
+        return;                       
+    }                                 
+
+    Node* src = copyObj.head;         
+    head = new Node(src->value);      
+    this->length = 1;                 
+
+    Node* dest = head;                
+    src = src->next;                  
+
+    while (src != nullptr) {          
+        dest->next = new Node(src->value); 
+        dest = dest->next;            
+        src = src->next;              
+        this->length++;               
+    }                                 
 }
 
 template <typename T>
@@ -82,6 +102,28 @@ int LinkedList<T>::getLength() const {
 template <typename T>
 void LinkedList<T>::insert(int position, const T& elem) {
     // TODO
+    if (position < 0 || position > this->length) {    
+        throw string("insert: error, position out of bounds"); 
+    }                                                  
+
+    Node* n = new Node(elem);                          
+
+    if (position == 0) {                               
+        n->next = head;                                
+        head = n;                                      
+    }                                                  
+    else {                                             
+        Node* curr = head;                             
+        for (int i = 0; i < position - 1; i++) {       
+            curr = curr->next;                         
+        }                                              
+
+        n->next = curr->next;                          
+        curr->next = n;                                
+    }                                                  
+
+    this->length++;    
+
 }
 
 template <typename T>
@@ -92,6 +134,28 @@ bool LinkedList<T>::isEmpty() const {
 template <typename T>
 void LinkedList<T>::remove(int position) {
     // TODO
+    if (position < 0 || position >= this->length) {   
+        throw string("remove: error, position out of bounds"); 
+    }                                                  
+
+    if (position == 0) {                               
+        Node* temp = head;                             
+        head = head->next;                             
+        delete temp;                                   
+    }                                                  
+    else {                                             
+        Node* curr = head;                             
+        for (int i = 0; i < position - 1; i++) {       
+            curr = curr->next;                         
+        }                                              
+
+        Node* temp = curr->next;                       
+        curr->next = temp->next;                       
+        delete temp;                                   
+    }                                                  
+
+    this->length--;     
+
 }
 
 template <typename T>
